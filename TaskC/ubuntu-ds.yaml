@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ubuntu
+  labels:
+    daemon: "ubuntu-dsp"
+spec:
+  selector:
+    matchLabels:
+      daemon: "ubuntu"
+  template:
+    metadata:
+      labels:
+        daemon: ubuntu
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: ubuntu-ds
+        image: ubuntu
+        tty: true
+        stdin: true

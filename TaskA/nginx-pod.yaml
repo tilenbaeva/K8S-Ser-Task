@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8-service
+  template:
+    metadata:
+      labels:
+        app: k8-service
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
